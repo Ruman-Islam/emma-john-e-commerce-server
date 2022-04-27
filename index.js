@@ -89,6 +89,7 @@ const run = async () => {
         })
 
         // http://localhost:5000/getorders
+        // https://tranquil-beach-24557.herokuapp.com/
         app.get('/getorders', verifyToken, async (req, res) => {
             const decodedEmail = req.decoded.email;
             const email = req.query.email;
