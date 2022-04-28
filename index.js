@@ -55,10 +55,10 @@ const run = async () => {
         app.get('/products', async (req, res) => {
             const limit = parseInt(req.query.limit);
             const pageNumber = parseInt(req.query.pageNumber);
-            const cursor = productsCollection.find();
+            const cursor = productsCollection.find({});
             const products = await cursor.skip(pageNumber * limit).limit(limit).toArray();
             if (!products?.length) {
-                return res.send({ succcess: false, error: 'No product found' })
+                return res.send({ success: false, error: 'No product found' })
             }
             // let products;
             // if (pageNumber || limit) {
