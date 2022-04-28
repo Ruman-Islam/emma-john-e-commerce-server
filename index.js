@@ -56,6 +56,7 @@ const run = async () => {
             const limit = parseInt(req.query.limit);
             const pageNumber = parseInt(req.query.pageNumber);
             const cursor = productsCollection.find({});
+            const count = await productsCollection.estimatedDocumentCount();
             const products = await cursor.skip(pageNumber * limit).limit(limit).toArray();
             if (!products?.length) {
                 return res.send({ success: false, error: 'No product found' })
@@ -66,7 +67,7 @@ const run = async () => {
             // } else {
             //     products = await cursor.toArray();
             // }
-            res.send(products);
+            res.send({ products, count });
         })
 
         // http://localhost:5000/productCount
