@@ -55,14 +55,17 @@ const run = async () => {
         app.get('/products', async (req, res) => {
             const limit = parseInt(req.query.limit);
             const pageNumber = parseInt(req.query.pageNumber);
-            const query = {};
-            const cursor = productsCollection.find(query);
-            let products;
-            if (pageNumber || limit) {
-                products = await cursor.skip(pageNumber * limit).limit(limit).toArray();
-            } else {
-                products = await cursor.toArray();
+            const cursor = productsCollection.find();
+            const products = await await cursor.skip(pageNumber * limit).limit(limit).toArray();
+            if (!products?.length) {
+                return res.send({ succcess: false, error: 'No product found' })
             }
+            // let products;
+            // if (pageNumber || limit) {
+            //     products = await cursor.skip(pageNumber * limit).limit(limit).toArray();
+            // } else {
+            //     products = await cursor.toArray();
+            // }
             res.send(products);
         })
 
