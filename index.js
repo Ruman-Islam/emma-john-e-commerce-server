@@ -61,20 +61,14 @@ const run = async () => {
             if (!products?.length) {
                 return res.send({ success: false, error: 'No product found' })
             }
-            // let products;
-            // if (pageNumber || limit) {
-            //     products = await cursor.skip(pageNumber * limit).limit(limit).toArray();
-            // } else {
-            //     products = await cursor.toArray();
-            // }
             res.send({ products, count });
         })
 
         // http://localhost:5000/productCount
-        app.get('/productCount', async (req, res) => {
-            const count = await productsCollection.countDocuments();
-            res.send({ count });
-        })
+        // app.get('/productCount', async (req, res) => {
+        //     const count = await productsCollection.countDocuments();
+        //     res.send({ count });
+        // })
 
         // http://localhost:5000/productByKeys
         app.post('/productByKeys', async (req, res) => {
