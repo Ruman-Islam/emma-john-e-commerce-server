@@ -53,13 +53,13 @@ const run = async () => {
 
         // http://localhost:5000/products
         app.get('/products', async (req, res) => {
-            const page = parseInt(req.query.page);
-            const size = parseInt(req.query.size);
+            const limit = parseInt(req.query.limit);
+            const pageNumber = parseInt(req.query.pageNumber);
             const query = {};
             const cursor = productsCollection.find(query);
             let products;
-            if (page || size) {
-                products = await cursor.skip(page * size).limit(size).toArray();
+            if (pageNumber || limit) {
+                products = await cursor.skip(pageNumber * limit).limit(limit).toArray();
             } else {
                 products = await cursor.toArray();
             }
